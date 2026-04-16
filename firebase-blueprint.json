@@ -1,0 +1,114 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile and trust information",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "phoneNumber": { "type": "string" },
+        "age": { "type": "number" },
+        "gender": { "type": "string", "enum": ["Male", "Female", "Other"] },
+        "city": { "type": "string" },
+        "isVerified": { "type": "boolean" },
+        "trustScore": { "type": "number", "minimum": 0, "maximum": 100 },
+        "verificationLevel": { "type": "string", "enum": ["Highly Trusted", "Verified Traveler", "Partially Verified", "Unverified"] },
+        "verificationSource": { "type": "string" },
+        "verifiedAt": { "type": "string", "format": "date-time" },
+        "documentType": { "type": "string" },
+        "maskedDocumentId": { "type": "string" },
+        "completedTrips": { "type": "number" },
+        "rating": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "displayName", "email"]
+    },
+    "TripPost": {
+      "title": "TripPost",
+      "description": "A travel plan posted by a user",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "ownerUid": { "type": "string" },
+        "ownerName": { "type": "string" },
+        "ownerPhoto": { "type": "string" },
+        "destination": { "type": "string" },
+        "travelDate": { "type": "string", "format": "date" },
+        "age": { "type": "number" },
+        "gender": { "type": "string" },
+        "city": { "type": "string" },
+        "lookingFor": { "type": "string", "enum": ["Solo", "Group", "Male", "Female", "Anyone"] },
+        "description": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["ownerUid", "destination", "travelDate"]
+    },
+    "JoinRequest": {
+      "title": "JoinRequest",
+      "description": "A request to join a trip",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "tripId": { "type": "string" },
+        "tripOwnerUid": { "type": "string" },
+        "requesterUid": { "type": "string" },
+        "requesterName": { "type": "string" },
+        "requesterPhoto": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "accepted", "rejected"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["tripId", "tripOwnerUid", "requesterUid", "status"]
+    },
+    "Team": {
+      "title": "Team",
+      "description": "A travel team formed after a request is accepted",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "tripId": { "type": "string" },
+        "members": { "type": "array", "items": { "type": "string" } },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["tripId", "members"]
+    },
+    "ChatMessage": {
+      "title": "ChatMessage",
+      "description": "A single chat message within a team",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "teamId": { "type": "string" },
+        "senderUid": { "type": "string" },
+        "senderName": { "type": "string" },
+        "text": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["teamId", "senderUid", "senderName", "text", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profile data"
+    },
+    "/trips/{tripId}": {
+      "schema": "TripPost",
+      "description": "Trip posts collection"
+    },
+    "/requests/{requestId}": {
+      "schema": "JoinRequest",
+      "description": "Join requests collection"
+    },
+    "/teams/{teamId}": {
+      "schema": "Team",
+      "description": "Travel teams collection"
+    },
+    "/messages/{messageId}": {
+      "schema": "ChatMessage",
+      "description": "Chat messages collection"
+    }
+  }
+}

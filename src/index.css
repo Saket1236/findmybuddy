@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Satisfy&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-script: "Satisfy", cursive;
+  
+  --color-brand-primary: #3F4EAD; /* Deep Blue/Purple */
+  --color-brand-secondary: #F7D060; /* Yellow */
+  --color-brand-accent: #FF6D60; /* Orange/Red */
+  --color-brand-bg: #2D3192; /* Darker Blue */
+}
+
+@layer base {
+  body {
+    @apply bg-brand-bg text-white font-sans antialiased;
+    background: radial-gradient(circle at 50% 30%, #3F4EAD 0%, #2D3192 100%);
+    min-height: 100vh;
+  }
+}
+
+.glass-card {
+  @apply bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl;
+}
+
+.trust-meter-gradient {
+  background: conic-gradient(from 0deg, #FF6D60 0%, #F7D060 50%, #4ADE80 100%);
+}
+
+.badge-verified {
+  @apply bg-green-500/20 text-green-400 border border-green-500/30 px-2 py-0.5 rounded-lg flex items-center gap-1 text-[10px] font-bold uppercase;
+}
+
+.badge-digilocker {
+  @apply bg-brand-primary/20 text-blue-400 border border-brand-primary/30 px-2 py-0.5 rounded-lg flex items-center gap-1 text-[10px] font-bold uppercase;
+}
+
+.btn-primary {
+  @apply bg-brand-secondary text-brand-bg font-bold py-3 px-6 rounded-full transition-all hover:scale-105 active:scale-95 shadow-lg;
+}
+
+.btn-secondary {
+  @apply bg-white/20 text-white font-semibold py-3 px-6 rounded-full transition-all hover:bg-white/30 active:scale-95;
+}
+
+.input-field {
+  @apply bg-white/10 border border-white/20 rounded-2xl px-4 py-3 text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-brand-secondary/50;
+}
